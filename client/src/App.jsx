@@ -6,6 +6,8 @@ import Login from "./Components/Login/Login"
 import About from "./Components/About/About"
 import Contact from "./Components/Contact/Contact"
 import Cart from "./Components/Cart/Cart";
+import Policy from "./Pages/Policy/Policy"
+import License from "./Pages/License/License"
 
 function App() {
   const router = createBrowserRouter([
@@ -32,6 +34,13 @@ function App() {
     {
       path : "/cart",
       element : <Layout><Cart /></Layout>
+    },
+    {
+      path : "privacy-policy",
+      element : <Policy />
+    },
+    {path : "/licensing",
+    element : <License />
     }
   ])
 

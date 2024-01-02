@@ -13,10 +13,10 @@ const Footer = () => {
               <Link to="/about" className="p-4 text-md hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">About</Link>
             </li>
             <li>
-              <Link to="/privacy-policy" className="p-4 text-md hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">Privacy Policy</Link>
+              <Link to="/privacy-policy" target='_blank' className="p-4 text-md hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">Privacy Policy</Link>
             </li>
             <li>
-              <Link to="/licensing" className="p-4 text-md hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">Licensing</Link>
+              <Link to="/licensing" target='_blank' className="p-4 text-md hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">Licensing</Link>
             </li>
             <li>
               <Link to="/contact" className="p-4 text-md hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">Contact</Link>
