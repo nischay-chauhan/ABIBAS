@@ -1,6 +1,7 @@
 import Carousal from "../../Components/HomeCard/Carousal";
 import { TypeAnimation } from "react-type-animation";
-
+import ShoeCard from "../../Components/HomeCard/Card";
+import shoesData from "../../Data/shoes.json";
 const Home = () => {
   return (
     <div className="h-full w-full flex flex-col justify-center items-center text-white">
@@ -43,6 +44,12 @@ const Home = () => {
           Discover our diverse collection, crafted for comfort and dedicated to
           the latest fashion trends.
         </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 ">
+        {shoesData.map((shoe) => (
+          <ShoeCard key={shoe.id} shoe={shoe} />
+        ))}
       </div>
     </div>
   );

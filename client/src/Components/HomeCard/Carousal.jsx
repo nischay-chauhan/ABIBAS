@@ -1,10 +1,9 @@
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
 import { BiArrowBack } from "react-icons/bi";
+import shoesData from "../../Data/shoes.json";
 
-import data from "../../Data/shoes.json";
-
-const images = data.slice(5, 10).map((shoe) => shoe.image);
+const images = shoesData.slice(5, 10).map((shoe) => shoe.image);
 
 const responsive = {
   desktop: {
@@ -26,12 +25,12 @@ const responsive = {
 
 const Carousal = () => {
   return (
-    <div className="relative mt-8 text-white w-full max-w-[1360px] mx-auto">
+    <div className="relative mt-8 text-white w-full max-w-[1200px] mx-auto">
       <Carousel
         responsive={responsive}
         infinite={true}
         autoPlay={true}
-        autoPlaySpeed={2000} // Adjust the speed as needed
+        autoPlaySpeed={1000} // Adjust the speed as needed
         keyBoardControl={true}
         customTransition="transform 300ms ease-in-out"
         transitionDuration={300}
@@ -65,6 +64,7 @@ const Carousal = () => {
           ></div>
         ))}
       </Carousel>
+
     </div>
   );
 };
