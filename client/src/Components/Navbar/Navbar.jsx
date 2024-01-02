@@ -33,7 +33,7 @@ const Navbar = () => {
   return (
     <div className='bg-gradient-to-r from-gray-500 to-gray-700 backdrop-filter-blur-md flex justify-between items-center h-24 w-screen mx-auto px-4 text-white'>
       <Link className='hover:cursor-pointer' to='/'>
-        <h1 className='w-full text-3xl font-bold hover:cursor-pointer text-[#00df9a]'>ABIBAS.</h1>
+        <h1 className='w-full text-3xl font-bold hover:cursor-pointer hover:text-[#00df9a]'>ABIBAS.</h1>
       </Link>
 
       <ul className='hidden md:flex'>
