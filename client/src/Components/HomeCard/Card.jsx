@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const ShoeCard = ({ shoe }) => {
   const { id, name, price, image, description, rating } = shoe;
@@ -39,6 +40,20 @@ const ShoeCard = ({ shoe }) => {
       </div>
     </div>
   );
+};
+
+ShoeCard.propTypes = {
+  shoe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.shape({
+      rate: PropTypes.number.isRequired,
+      count: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default ShoeCard;
