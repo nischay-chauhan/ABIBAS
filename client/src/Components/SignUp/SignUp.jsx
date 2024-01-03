@@ -31,7 +31,7 @@ const Signup = () => {
       toast.success("User signed up successfully");
       setTimeout(() => {
         Navigate("/login");
-      }, 1500)
+      }, 1200)
 
       setEmail("");
       setPassword("");

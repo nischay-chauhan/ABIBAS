@@ -18,7 +18,7 @@ const Login = () => {
       toast.success("User signed in successfully");
       setTimeout(() => {
         Navigate("/");
-      }, 1500);
+      }, 1200);
       console.log(userCredential);
     } catch (error) {
       toast.error(error.message);
