@@ -9,6 +9,8 @@ import Cart from "./Components/Cart/Cart";
 import Policy from "./Pages/Policy/Policy"
 import License from "./Pages/License/License"
 
+import Profile from "./Components/Profile/Profile"
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -41,6 +43,11 @@ function App() {
     },
     {path : "/licensing",
     element : <License />
+  },
+    {
+      path : "/profile",
+      element : <Layout><Profile /></Layout>
+
     }
   ])
 
