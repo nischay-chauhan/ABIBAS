@@ -2,6 +2,7 @@ import { useState , useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'; 
 import { auth } from '../../FireBaseConfig';
+import toast, { Toaster } from "react-hot-toast";
 const ShoeCard = ({ shoe }) => {
   const { id, name, price, image, description, rating } = shoe;
   const maxLength = 150;
@@ -27,8 +28,19 @@ const ShoeCard = ({ shoe }) => {
     return () => unsubscribe();
   }, []);
 
+  const handleAddToCart = () => {
+    if (user) {
+      toast.success('Item added to cart');
+    } else {
+      toast.error('Please sign in to add items to cart');
+    }
+  }
+
   return (
+    <>
+    <Toaster />
     <div className="max-w-md mx-auto overflow-hidden bg-white rounded-md shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 cursor-pointer relative">
+   
       <img src={image} alt={name} className="w-full h-48 object-cover" />
       <div key={id} className="p-4">
         <h2 className="text-xl font-semibold">{name}</h2>
@@ -50,11 +62,13 @@ const ShoeCard = ({ shoe }) => {
         </div>
       </div>
       {user ? (
-        <Link to="/cart">
-          <button className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded transition duration-300 hover:bg-blue-700">
+     
+          <button 
+          onClick={handleAddToCart}
+          className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded transition duration-300 hover:bg-blue-700">
             Add to Cart
           </button>
-        </Link>
+     
       ) : (
         <Link to="/login">
           <button className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded transition duration-300 hover:bg-blue-700">
@@ -63,6 +77,7 @@ const ShoeCard = ({ shoe }) => {
         </Link>
       )}
     </div>
+    </>
   );
 };
 
