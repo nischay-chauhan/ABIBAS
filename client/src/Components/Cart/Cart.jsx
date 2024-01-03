@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { database } from '../../FireBaseConfig';
-import { ref, get, update, remove } from 'firebase/database';
+import { ref, get,  remove } from 'firebase/database';
 import { auth } from '../../FireBaseConfig';
 
 const Cart = () => {
@@ -114,29 +114,29 @@ const Cart = () => {
         toast.error('Error removing item from cart. Please try again.');
       });
   };
-  const updateCartItem = (itemId, updatedItem) => {
-    const cartRef = ref(database, `users/${userId}/cart/${itemId}`);
-    update(cartRef, updatedItem)
-      .then(() => {
-        setCartItems((prevCartItems) => {
-          return prevCartItems.map((item) =>
-            item.id === itemId ? { ...item, quantity: updatedItem.quantity } : item
-          );
-        });
+  // const updateCartItem = (itemId, updatedItem) => {
+  //   const cartRef = ref(database, `users/${userId}/cart/${itemId}`);
+  //   update(cartRef, updatedItem)
+  //     .then(() => {
+  //       setCartItems((prevCartItems) => {
+  //         return prevCartItems.map((item) =>
+  //           item.id === itemId ? { ...item, quantity: updatedItem.quantity } : item
+  //         );
+  //       });
   
-        // Use the callback function to ensure the state is updated before calculating the total price
-        setTotalPrice((prevTotalPrice) => {
-          const updatedTotal = cartItems.reduce((acc, item) => {
-            return acc + item.price * item.quantity;
-          }, 0);
-          return updatedTotal;
-        });
-      })
-      .catch((error) => {
-        console.error('Error updating cart item:', error);
-        toast.error('Error updating cart item. Please try again.');
-      });
-  };
+  //       // Use the callback function to ensure the state is updated before calculating the total price
+  //       setTotalPrice((prevTotalPrice) => {
+  //         const updatedTotal = cartItems.reduce((acc, item) => {
+  //           return acc + item.price * item.quantity;
+  //         }, 0);
+  //         return updatedTotal;
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error updating cart item:', error);
+  //       toast.error('Error updating cart item. Please try again.');
+  //     });
+  // };
   
 
   return (
