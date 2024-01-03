@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom'; 
+import { auth } from '../../FireBaseConfig';
 const ShoeCard = ({ shoe }) => {
   const { id, name, price, image, description, rating } = shoe;
   const maxLength = 150;
 
   const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const [user, setUser] = useState(null);
 
   const truncatedDescription =
     description.length > maxLength
@@ -16,8 +19,16 @@ const ShoeCard = ({ shoe }) => {
     setShowFullDescription(!showFullDescription);
   };
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="max-w-md mx-auto overflow-hidden bg-white rounded-md shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 cursor-pointer">
+    <div className="max-w-md mx-auto overflow-hidden bg-white rounded-md shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 cursor-pointer relative">
       <img src={image} alt={name} className="w-full h-48 object-cover" />
       <div key={id} className="p-4">
         <h2 className="text-xl font-semibold">{name}</h2>
@@ -38,9 +49,23 @@ const ShoeCard = ({ shoe }) => {
           <span className="ml-2 text-gray-500">({rating.count} reviews)</span>
         </div>
       </div>
+      {user ? (
+        <Link to="/cart">
+          <button className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded transition duration-300 hover:bg-blue-700">
+            Add to Cart
+          </button>
+        </Link>
+      ) : (
+        <Link to="/login">
+          <button className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded transition duration-300 hover:bg-blue-700">
+            Add to Cart
+          </button>
+        </Link>
+      )}
     </div>
   );
 };
+
 
 ShoeCard.propTypes = {
   shoe: PropTypes.shape({
