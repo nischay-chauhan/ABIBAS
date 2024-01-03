@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import {  auth } from '../../FireBaseConfig';
+import { auth } from '../../FireBaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
+import PropTypes from 'prop-types';
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  // const [userId , setUserId] = useState('')
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
+      // if (user) {
+      //   userId && userId !== user.uid && setUserId(user.uid);
+      // } else {
+      //   setUserId('');
+      // }
     });
 
     return () => unsubscribe();
   }, []);
-
 
   const handleNav = () => {
     setNav(!nav);
@@ -29,8 +34,8 @@ const Navbar = () => {
         { id: 1, text: 'Home', path: '/' },
         { id: 2, text: 'About', path: '/about' },
         { id: 3, text: 'Contact', path: '/contact' },
-        { id: 4, text: 'Cart', path: '/cart' },
-        { id: 5 ,text: 'Profile', path: '/profile'}
+        { id: 4, text: 'Cart', path: `/cart` },
+        { id: 5, text: 'Profile', path: '/profile' },
       ]
     : [
         { id: 1, text: 'Home', path: '/' },
@@ -39,6 +44,8 @@ const Navbar = () => {
         { id: 4, text: 'SignUp', path: '/signup' },
         { id: 5, text: 'Login', path: '/login' },
       ];
+
+      
 
   return (
     <div className='bg-gradient-to-r from-gray-500 to-gray-700 backdrop-filter-blur-md flex justify-between items-center h-24 w-screen mx-auto px-4 text-white'>
@@ -87,3 +94,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  userId: PropTypes.string, 
+};

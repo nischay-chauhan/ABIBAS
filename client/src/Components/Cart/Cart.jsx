@@ -1,16 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import { database } from '../../FireBaseConfig';
+import { ref, get } from 'firebase/database';
+import {auth} from "../../FireBaseConfig"
 
 
-const Cart = ({ cartItems }) => {
-  const [totalPrice, setTotalPrice] = useState(
-    cartItems ? cartItems.reduce((total, item) => total + item.price, 0) : 0
-  );
+const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const userId = auth.currentUser.uid
+
+  useEffect(() => {
+    const userCartRef = ref(database, `users/${userId}/cart`);
+
+    get(userCartRef)
+      .then((snapshot) => {
+        const cartData = snapshot.val();
+
+        if (cartData) {
+          const items = Object.values(cartData);
+          setCartItems(items);
+
+          const total = items.reduce((acc, item) => {
+            return acc + item.price * item.quantity;
+          }, 0);
+
+          setTotalPrice(total);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching cart data:', error);
+      });
+  }, [userId]);
 
   const handleCheckout = () => {
     toast.success('Checkout complete!');
-
+    // Add logic for handling the checkout process
   };
 
   return (
@@ -23,7 +50,9 @@ const Cart = ({ cartItems }) => {
               <img src={item.image} alt={item.name} className="w-16 h-16 object-cover mr-4" />
               <div>
                 <h2 className="text-lg font-semibold">{item.name}</h2>
-                <p className="text-gray-700">&#8377;{item.price}</p>
+                <p className="text-gray-700">
+                  &#8377;{item.price} x {item.quantity}
+                </p>
               </div>
             </div>
           ))}
@@ -45,14 +74,7 @@ const Cart = ({ cartItems }) => {
 };
 
 Cart.propTypes = {
-  cartItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-    })
-  ),
+  userId: PropTypes.string.isRequired,
 };
 
 export default Cart;

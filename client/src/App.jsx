@@ -1,25 +1,40 @@
-import { createBrowserRouter , RouterProvider } from "react-router-dom"
-import Layout from "./Components/Layout/Layout"
-import Home from "./Pages/Home/Home"
-import SignUp from "./Components/SignUp/SignUp"
-import Login from "./Components/Login/Login"
-import About from "./Components/About/About"
-import Contact from "./Components/Contact/Contact"
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import { useState, useEffect } from "react"; // Import useEffect
+import Layout from "./Components/Layout/Layout";
+import Home from "./Pages/Home/Home";
+import SignUp from "./Components/SignUp/SignUp";
+import Login from "./Components/Login/Login";
+import About from "./Components/About/About";
+import Contact from "./Components/Contact/Contact";
+import Policy from "./Pages/Policy/Policy";
+import License from "./Pages/License/License";
+import Profile from "./Components/Profile/Profile";
 import Cart from "./Components/Cart/Cart";
-import Policy from "./Pages/Policy/Policy"
-import License from "./Pages/License/License"
-
-import Profile from "./Components/Profile/Profile"
-
+// import { auth } from "./FireBaseConfig";
+// import { onAuthStateChanged } from "firebase/auth";
 function App() {
+  // const [userId, setUserId] = useState('');
+
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setUserId(user.uid);
+  //     } else {
+  //       setUserId('');
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
   const router = createBrowserRouter([
     {
-      path : "/",
-      element : <Layout><Home /></Layout>
+      path: "/",
+      element: <Layout><Home /></Layout>,
     },
     {
-      path : "/signup",
-      element : <Layout><SignUp /></Layout>
+      path: "/signup",
+      element: <Layout><SignUp /></Layout>,
     },
     {
       path: '/login',
@@ -34,28 +49,31 @@ function App() {
       element: <Layout><Contact /></Layout>,
     },
     {
-      path : "/cart",
-      element : <Layout><Cart /></Layout>
+      path: `/cart`,
+      element: <Layout><Cart /></Layout>,
     },
     {
-      path : "privacy-policy",
-      element : <Policy />
+      path: "privacy-policy",
+      element: <Layout><Policy /></Layout>,
     },
-    {path : "/licensing",
-    element : <License />
-  },
     {
-      path : "/profile",
-      element : <Layout><Profile /></Layout>
+      path: "/licensing",
+      element: <Layout><License /></Layout>,
+    },
+    {
+      path: "/profile",
+      element: <Layout><Profile /></Layout>,
+    },
+  ]);
 
-    }
-  ])
+  // console.log('userId:', userId);
+  // console.log('Constructed path:', `/users/${userId}/cart`);
 
   return (
     <>
       <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
