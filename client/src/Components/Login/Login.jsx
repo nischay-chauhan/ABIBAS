@@ -19,7 +19,7 @@ const Login = () => {
       toast.success("User signed in successfully");
       setTimeout(() => {
         Navigate("/");
-      }, 1200);
+      }, 800);
       console.log(userCredential);
     } catch (error) {
       toast.error(error.message);

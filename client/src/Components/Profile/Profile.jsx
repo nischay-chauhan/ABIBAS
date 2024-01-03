@@ -19,6 +19,7 @@ const Profile = () => {
 
     return () => unsubscribe();
   }, []);
+  
 
   const handleLogout = async () => {
     try {
@@ -26,7 +27,7 @@ const Profile = () => {
       toast.success('User signed out successfully');
       setTimeout(() => {
         Navigate('/login');
-      }, 1500);
+      }, 800);
 
       console.log('User signed out successfully');
     } catch (error) {
