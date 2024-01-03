@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-
+import {  auth } from '../../FireBaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 const Navbar = () => {
   const [nav, setNav] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleNav = () => {
     setNav(!nav);
@@ -13,14 +23,13 @@ const Navbar = () => {
     setNav(false);
   };
 
-  const isLoggedIn = false;
-
   const navItems = isLoggedIn
     ? [
         { id: 1, text: 'Home', path: '/' },
         { id: 2, text: 'About', path: '/about' },
         { id: 3, text: 'Contact', path: '/contact' },
-        { id: 6, text: 'Cart', path: '/cart' },
+        { id: 4, text: 'Cart', path: '/cart' },
+        { id: 5 ,text: 'Profile', path: '/profile'}
       ]
     : [
         { id: 1, text: 'Home', path: '/' },

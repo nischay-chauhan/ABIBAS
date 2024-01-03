@@ -1,30 +1,55 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { toast } from "react-toastify";
-
+import { Toaster, toast } from "react-hot-toast";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../FireBaseConfig";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignup = () => {
+  const Navigate = useNavigate();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
 
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+      const user = userCredential.user;
+      console.log("User signed up:", user);
+      toast.success("User signed up successfully");
+      setTimeout(() => {
+        Navigate("/login");
+      }, 1500)
+
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+
+
+    } catch (error) {
+
+      console.error("Error signing up:", error.message);
+      toast.error("Error signing up. Please try again.");
+    }
   };
 
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+        <Toaster position="top-center" reverseOrder={false} />
+
         <h1 className="text-4xl font-semibold text-center text-purple-700 underline">
           Sign Up
         </h1>
@@ -84,7 +109,10 @@ const Signup = () => {
 
         <p className="mt-8 text-xs font-light text-center text-gray-700">
           Already have an account?{" "}
-          <Link to="/login" className="font-medium text-purple-600 hover:underline">
+          <Link
+            to="/login"
+            className="font-medium text-purple-600 hover:underline"
+          >
             Login
           </Link>
         </p>
