@@ -62,7 +62,6 @@ const Cart = () => {
 
   const handleCheckout = () => {
     toast.success('Checkout complete!');
-    // Add logic for handling the checkout process
   };
 
 
@@ -84,7 +83,7 @@ const Cart = () => {
     });
   
     setCartItems(updatedCart);
-    updateTotalPrice(); // Call updateTotalPrice here to update the total price when the quantity is incremented
+    updateTotalPrice(); 
   };
   
   const handleDecrement = (itemId) => {
@@ -96,7 +95,7 @@ const Cart = () => {
     });
   
     setCartItems(updatedCart);
-    updateTotalPrice(); // Call updateTotalPrice here to update the total price when the quantity is decremented
+    updateTotalPrice(); 
   };
   
 
@@ -114,30 +113,6 @@ const Cart = () => {
         toast.error('Error removing item from cart. Please try again.');
       });
   };
-  // const updateCartItem = (itemId, updatedItem) => {
-  //   const cartRef = ref(database, `users/${userId}/cart/${itemId}`);
-  //   update(cartRef, updatedItem)
-  //     .then(() => {
-  //       setCartItems((prevCartItems) => {
-  //         return prevCartItems.map((item) =>
-  //           item.id === itemId ? { ...item, quantity: updatedItem.quantity } : item
-  //         );
-  //       });
-  
-  //       // Use the callback function to ensure the state is updated before calculating the total price
-  //       setTotalPrice((prevTotalPrice) => {
-  //         const updatedTotal = cartItems.reduce((acc, item) => {
-  //           return acc + item.price * item.quantity;
-  //         }, 0);
-  //         return updatedTotal;
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error updating cart item:', error);
-  //       toast.error('Error updating cart item. Please try again.');
-  //     });
-  // };
-  
 
   return (
     <div className="max-w-2xl mx-auto mt-8">

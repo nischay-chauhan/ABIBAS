@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../../FireBaseConfig";
 import { useNavigate } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,6 +45,22 @@ const Signup = () => {
       toast.error("Error signing up. Please try again.");
     }
   };
+
+  const handleGoogleSignIn = async() => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth , provider);
+      const user = result.user;
+      console.log("USer Signed in with Google" , user);
+      toast.success("Logged in Successfully");
+      setTimeout(() => {
+        Navigate('/')
+      },700)
+    }catch(error){
+      console.log("Error signing in with Google : " , error.message);
+      toast.error("Error signing in with Google , Please try again Later")
+    }
+  }
 
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -106,6 +123,19 @@ const Signup = () => {
             </button>
           </div>
         </form>
+
+        <h1 className="mt-6 text-2xl font-semibold text-center text-gray-700">OR</h1>
+
+        <p className="mt-4 text-center text-gray-700">
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="flex items-center justify-center w-full px-4 py-2 mt-4 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:bg-red-500"
+          >
+            <FaGoogle className="mr-2" /> Sign In with Google
+          </button>
+        </p>
+        
 
         <p className="mt-8 text-xs font-light text-center text-gray-700">
           Already have an account?{" "}

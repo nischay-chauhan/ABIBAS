@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import { useState, useEffect } from "react"; // Import useEffect
 import Layout from "./Components/Layout/Layout";
 import Home from "./Pages/Home/Home";
 import SignUp from "./Components/SignUp/SignUp";
@@ -10,22 +9,8 @@ import Policy from "./Pages/Policy/Policy";
 import License from "./Pages/License/License";
 import Profile from "./Components/Profile/Profile";
 import Cart from "./Components/Cart/Cart";
-// import { auth } from "./FireBaseConfig";
-// import { onAuthStateChanged } from "firebase/auth";
 function App() {
-  // const [userId, setUserId] = useState('');
-
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setUserId(user.uid);
-  //     } else {
-  //       setUserId('');
-  //     }
-  //   });
-
-  //   return () => unsubscribe();
-  // }, []);
+  
 
   const router = createBrowserRouter([
     {
@@ -65,9 +50,6 @@ function App() {
       element: <Layout><Profile /></Layout>,
     },
   ]);
-
-  // console.log('userId:', userId);
-  // console.log('Constructed path:', `/users/${userId}/cart`);
 
   return (
     <>
