@@ -1,8 +1,21 @@
+import  { useState } from "react";
 import Carousal from "../../Components/HomeCard/Carousal";
 import { TypeAnimation } from "react-type-animation";
 import ShoeCard from "../../Components/HomeCard/Card";
 import shoesData from "../../Data/shoes.json";
+
 const Home = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredShoes, setFilteredShoes] = useState(shoesData);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filteredResults = shoesData.filter((shoe) =>
+      shoe.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredShoes(filteredResults);
+  };
+
   return (
     <div className="h-full w-full flex flex-col justify-center items-center text-white">
       <div className="mb-8 mt-4">
@@ -39,15 +52,27 @@ const Home = () => {
         <h1 className="text-4xl md:text-6xl mt-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-pink-500">
           Build Your Own Path
         </h1>
-        <p className="text-md md:text-2xl mt-4  text-black">
+        <p className="text-md md:text-2xl mt-4 text-black">
           Elevate your style with ABIBAS, where passion meets craftsmanship.
           Discover our diverse collection, crafted for comfort and dedicated to
           the latest fashion trends.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 ">
-        {shoesData.map((shoe) => (
+
+      {/* Search Bar */}
+      <div className="mb-8 mt-4 flex justify-center  ">
+        <input
+          type="text"
+          placeholder="Search for shoes..."
+          value={searchQuery}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="border border-gray-300 text-black px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-300  "
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {filteredShoes.map((shoe) => (
           <ShoeCard key={shoe.id} shoe={shoe} />
         ))}
       </div>

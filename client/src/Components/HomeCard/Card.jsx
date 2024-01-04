@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { auth, database } from '../../FireBaseConfig';
@@ -33,12 +33,12 @@ const ShoeCard = ({ shoe }) => {
     if (user) {
       const userId = user.uid;
       const userCartRef = ref(database, `users/${userId}/cart`);
-  
+
       get(userCartRef).then((snapshot) => {
         const cart = snapshot.val();
         const updatedCart = cart || {};
         const existingItem = updatedCart[id];
-  
+
         if (existingItem) {
           existingItem.quantity += 1;
         } else {
@@ -47,7 +47,7 @@ const ShoeCard = ({ shoe }) => {
             quantity: 1,
           };
         }
-  
+
         set(userCartRef, updatedCart)
           .then(() => {
             console.log('Item added to cart:', updatedCart);
@@ -62,14 +62,14 @@ const ShoeCard = ({ shoe }) => {
       toast.error('Please login to add items to cart');
     }
   };
-  
+
   return (
     <>
       <Toaster />
       <div className="max-w-md mx-auto overflow-hidden bg-white rounded-md shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 cursor-pointer relative">
         <img src={image} alt={name} className="w-full h-48 object-cover" />
         <div key={id} className="p-4">
-          <h2 className="text-xl font-semibold">{name}</h2>
+          <h2 className="text-xl text-black font-semibold">{name}</h2>
           <p className="text-gray-700 mt-2">&#8377;{price}</p>
           <p className="text-gray-600 mt-2">
             {showFullDescription ? description : truncatedDescription}
